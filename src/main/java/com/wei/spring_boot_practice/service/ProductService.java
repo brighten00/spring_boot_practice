@@ -6,9 +6,11 @@ import com.wei.spring_boot_practice.exception.NotFoundException;
 import com.wei.spring_boot_practice.prameter.ProductQueryParameter;
 import com.wei.spring_boot_practice.repository.MockProductDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ProductService {
     @Autowired
     private MockProductDAO productDAO;
