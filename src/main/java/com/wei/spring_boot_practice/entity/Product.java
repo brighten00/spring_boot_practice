@@ -1,5 +1,8 @@
 package com.wei.spring_boot_practice.entity;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "products")
 public class Product {
     private String id;
     private String name;

@@ -72,7 +72,7 @@ public class ProductController {
 //    }
 //    @@20210413
 //    GET "/products" get list of products
-    @GetMapping("/products")
+    @GetMapping
     public ResponseEntity<List<Product>> getProducts(@ModelAttribute ProductQueryParameter param){
         List<Product> products = productService.getProducts(param);
 

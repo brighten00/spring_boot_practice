@@ -1,9 +1,14 @@
 package com.wei.spring_boot_practice.prameter;
 
+import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
+
 public class ProductQueryParameter {
     private String keyword;
+
     private String orderBy;
     private String sortRule;
+    private Integer priceTo;
+    private Integer priceFrom;
 
 //    set default so "/products" can show every products
 //    public ProductQueryParameter(){
@@ -37,5 +42,12 @@ public class ProductQueryParameter {
     public void setSortRule(String sortRule) {
         this.sortRule = sortRule;
     }
-    
+
+    public Integer getPriceTo() { return priceTo; }
+
+    public void setPriceTo(Integer priceTo) { this.priceTo = priceTo; }
+
+    public Integer getPriceFrom() { return priceFrom; }
+
+    public void setPriceFrom(Integer priceFrom) { this.priceFrom = priceFrom; }
 }
