@@ -51,18 +51,20 @@ public class ProductService {
         int priceFrom = Optional.ofNullable(param.getPriceFrom()).orElse(0);
         int priceTo = Optional.ofNullable(param.getPriceTo()).orElse(Integer.MAX_VALUE);
 
-//        Sort sort = configureSort(param.getOrderBy(), param.getSortRule());
-        return repository.findByPriceBetweenAndNameLikeIgnoreCase(priceFrom, priceTo, nameKeyword);
-//        return repository.findByPriceBetweenAndNameLikeIgnoreCase(priceFrom, priceTo, nameKeyword, sort);
+        Sort sort = configureSort(param.getOrderBy(), param.getSortRule());
+//        return repository.findByPriceBetweenAndNameLikeIgnoreCase(priceFrom, priceTo, nameKeyword);
+        return repository.findByPriceBetweenAndNameLikeIgnoreCase(priceFrom, priceTo, nameKeyword, sort);
     }
 
-//    private Sort configureSort(String orderBy, String sortRule) {
-//        Sort sort = Sort.unsorted();
-//        if (Objects.nonNull(orderBy) && Objects.nonNull(sortRule)) {
-//            Sort.Direction direction = Sort.Direction.fromString(sortRule);
+    private Sort configureSort(String orderBy, String sortRule) {
+        Sort sort = Sort.unsorted();
+        if (Objects.nonNull(orderBy) && Objects.nonNull(sortRule)) {
+            Sort.Direction direction = Sort.Direction.fromString(sortRule);
+            sort = Sort.by(direction, orderBy);
+//            The second parameter of Sort should be List
 //            sort = new Sort(direction, orderBy);
-//        }
-//
-//        return sort;
-//    }
+        }
+
+        return sort;
+    }
 }
