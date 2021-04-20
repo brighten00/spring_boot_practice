@@ -202,4 +202,32 @@ public class SpringBootPracticeApplicationTests {
 //				.andExpect(jsonPath("$[3].id").value(p3.getId()));
 	}
 
+	@Test
+	public void get400WhenCreateProductWithEmptyName() throws Exception {
+		JSONObject request = new JSONObject();
+		request.put("name", "");
+		request.put("price", 350);
+
+		mockMvc.perform(post("/products")
+				.headers(httpHeaders)
+				.content(request.toString()))
+				.andExpect(status().isBadRequest());
+	}
+
+
+	@Test
+	public void get400WhenReplaceProductWithNegativePrice() throws Exception {
+		Product product = createProduct("Computer Science", 350);
+		productRepository.insert(product);
+
+		JSONObject request = new JSONObject();
+		request.put("name", "Computer Science");
+		request.put("price", -100);
+
+		mockMvc.perform(put("/products/" + product.getId())
+				.headers(httpHeaders)
+				.content(request.toString()))
+				.andExpect(status().isBadRequest());
+	}
+
 }

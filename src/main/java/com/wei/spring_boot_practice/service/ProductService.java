@@ -1,6 +1,8 @@
 package com.wei.spring_boot_practice.service;
 
+import com.wei.spring_boot_practice.converter.ProductConverter;
 import com.wei.spring_boot_practice.entity.Product;
+import com.wei.spring_boot_practice.entity.ProductRequest;
 import com.wei.spring_boot_practice.exception.ConflictException;
 import com.wei.spring_boot_practice.exception.NotFoundException;
 import com.wei.spring_boot_practice.prameter.ProductQueryParameter;
@@ -19,11 +21,8 @@ public class ProductService {
     @Autowired
     private ProductRepository repository;
 
-    public Product createProduct(Product request) {
-        Product product = new Product();
-        product.setName(request.getName());
-        product.setPrice(request.getPrice());
-
+    public Product createProduct(ProductRequest request) {
+        Product product = ProductConverter.toProduct(request);
         return repository.insert(product);
     }
 
@@ -31,15 +30,13 @@ public class ProductService {
         return repository.findById(id).orElseThrow(() -> new NotFoundException("Can not find the product."));
     }
 
-    public Product replaceProduct(String id, Product request) {
+    public Product replaceProduct(String id, ProductRequest request) {
         Product oldProduct = getProduct(id);
 
-        Product product = new Product();
-        product.setId(oldProduct.getId());
-        product.setName(request.getName());
-        product.setPrice(request.getPrice());
+        Product newProduct = ProductConverter.toProduct(request);
+        newProduct.setId(oldProduct.getId());
 
-        return repository.save(product);
+        return repository.save(newProduct);
     }
 
     public void deleteProduct(String id) {
