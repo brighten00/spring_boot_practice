@@ -2,6 +2,7 @@ package com.wei.spring_boot_practice.converter;
 
 import com.wei.spring_boot_practice.entity.Product;
 import com.wei.spring_boot_practice.entity.ProductRequest;
+import com.wei.spring_boot_practice.entity.ProductResponse;
 
 public class ProductConverter {
     private ProductConverter() {
@@ -15,4 +16,14 @@ public class ProductConverter {
 
         return product;
     }
+
+    public static ProductResponse toProductResponse(Product product) {
+        ProductResponse response = new ProductResponse();
+        response.setId(product.getId());
+        response.setName(product.getName());
+        response.setPrice(product.getPrice());
+
+        return response;
+    }
+
 }

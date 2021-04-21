@@ -2,6 +2,7 @@ package com.wei.spring_boot_practice.controller;
 
 import com.wei.spring_boot_practice.entity.Product;
 import com.wei.spring_boot_practice.entity.ProductRequest;
+import com.wei.spring_boot_practice.entity.ProductResponse;
 import com.wei.spring_boot_practice.prameter.ProductQueryParameter;
 import com.wei.spring_boot_practice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,15 +36,15 @@ public class ProductController {
 //  GET "/products/{id}"  get product data
 //  can be replace by @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProduct(@PathVariable("id") String id){
-        Product product = productService.getProduct(id);
+    public ResponseEntity<ProductResponse> getProduct(@PathVariable("id") String id){
+        ProductResponse product = productService.getProductResponse(id);
         return ResponseEntity.ok().body(product);
     }
 
 //  POST "/products" create new product
     @PostMapping
-    public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductRequest request) {
-        Product product = productService.createProduct(request);
+    public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody ProductRequest request) {
+        ProductResponse product = productService.createProduct(request);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(product.getId()).toUri();
 
@@ -52,8 +53,8 @@ public class ProductController {
 
 //  PUT "/products/{id}"  update product data
     @PutMapping("/{id}")
-    public ResponseEntity<Product> replaceProduct(@PathVariable("id") String id,@Valid @RequestBody ProductRequest request){
-        Product product = productService.replaceProduct(id, request);
+    public ResponseEntity<ProductResponse> replaceProduct(@PathVariable("id") String id,@Valid @RequestBody ProductRequest request){
+        ProductResponse product = productService.replaceProduct(id, request);
 
         return ResponseEntity.ok().body(product);
     }
@@ -79,8 +80,8 @@ public class ProductController {
 //    @@20210413
 //    GET "/products" get list of products
     @GetMapping
-    public ResponseEntity<List<Product>> getProducts(@ModelAttribute ProductQueryParameter param){
-        List<Product> products = productService.getProducts(param);
+    public ResponseEntity<List<ProductResponse>> getProducts(@ModelAttribute ProductQueryParameter param){
+        List<ProductResponse> products = productService.getProducts(param);
 
         return ResponseEntity.ok().body(products);
     }
